@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 通过id查询用户 -->
+<!--
+    resultType表示查询操作的返回的结果类型
+    parameterType如其意思就是传入的参数类型
+    #{} 意思是取User这个java类中的哪个属性作为值
+-->
+<mapper namespace="jing">
+
+    <select id="findAll" parameterType="long" resultType="entity.User">
+        SELECT id,name,password from user
+    </select>
+
+    <select id="findUserById" parameterType="int" resultType="entity.User">
+        SELECT * from USER where id=#{id}
+    </select>
+
+    <!--通过名字模糊查询-->
+    <select id="findUserByName" parameterType="java.lang.String" resultType="entity.User">
+        SELECT *FROM USER WHERE name LIKE '%${value}%'
+    </select>
+
+
+    <select id="insertUser" parameterType="entity.User">
+        INSERT INTO USER(name ,password) VALUES (#{name},#{password})
+    </select>
+
+    <select id="deleteUserById" parameterType="int" >
+        delete FROM user where id=#{id}
+    </select>
+
+    <select id="updateUser" parameterType="entity.User" >
+        UPDATE user set name=#{name},password=#{password} WHERE id=#{id}
+    </select>
+</mapper>
